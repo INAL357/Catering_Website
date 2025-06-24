@@ -1,0 +1,256 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* ✅ Prevents horizontal scroll */
+}
+
+
+:root {
+  --primary-color: #e74c3c;
+  --primary-hover-color: #c0392b;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --overlay-hover-bg: rgba(0, 0, 0, 0.8);
+  --text-color: #ecf0f1;
+  --transition-speed: 0.3s;
+}
+
+.heroContainer {
+  position: relative;
+    width: 100vw;
+  height: 100vh;
+  min-height: 400px; /* Minimum height */
+  max-height: 1200px; /* Maximum height */
+  overflow: hidden;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity var(--transition-speed) ease-in-out;
+}
+
+.fade-out { opacity: 0; }
+.fade-in { opacity: 1; }
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-color);
+  z-index: 2;
+  padding: 0 15px;
+  width: 90%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.overlay h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem); /* Fluid typography */
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.overlay p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem); /* Fluid typography */
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cta-button {
+    text-decoration: none !important;
+  padding: 12px 24px;
+  min-width: 120px; /* Minimum touch target size */
+  background: var(--primary-color);
+  border: none;
+  color: var(--text-color);
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  border-radius: 20px;
+}
+
+.cta-button:hover {
+  background: var(--primary-hover-color);
+  transform: translateY(-2px);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--overlay-bg);
+  border: none;
+  color: var(--text-color);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  border-radius: 50%;
+  transition: all var(--transition-speed);
+}
+
+.left-arrow { left: 15px; }
+.right-arrow { right: 15px; }
+.arrow:hover {
+  background: var(--overlay-hover-bg);
+  transform: scale(1.1) translateY(-50%);
+}
+
+/* Landscape orientation for mobile devices */
+@media (max-height: 500px) and (orientation: landscape) {
+  .heroContainer {
+    height: 100vh;
+    min-height: 300px;
+  }
+  
+  .overlay {
+    top: 40%;
+    transform: translate(-50%, -40%);
+  }
+  
+  .overlay h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 0.5rem;
+  }
+  
+  .overlay p {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    margin-bottom: 1rem;
+  }
+  
+  .cta-button {
+    padding: 8px 16px;
+    min-width: 100px;
+  }
+}
+
+/* Tablet and smaller */
+@media (max-width: 768px) {
+  .heroContainer {
+    height: 70vh;
+  }
+  
+  .arrow {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  .heroContainer {
+    height: 60vh;
+  }
+  
+  .overlay {
+    width: 95%;
+  }
+  
+  .arrow {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 375px) {
+  .heroContainer {
+    height: 55vh;
+  }
+  
+  .cta-button {
+    padding: 10px 20px;
+  }
+}
+.dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.dialog-box {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  width: 45%;
+  max-width: 400px;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.dialog-box h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.dialog-box p {
+  color: #4b5563;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.dialog-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.dialog-buttons .yes-button {
+  background-color: #e11d48;
+  color: white;
+}
+
+.dialog-buttons .yes-button:hover {
+  background-color: #be123c;
+}
+
+.dialog-buttons .cancel-button {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.dialog-buttons .cancel-button:hover {
+  background-color: #d1d5db;
+}
+
+.yes-button{
+  margin-left: 82px;
+}
+
+.cancel-button{
+  margin-left: 25px;
+
+}

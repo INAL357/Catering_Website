@@ -1,0 +1,159 @@
+.footer {
+  padding: 50px 20px;
+  background-color: #1f2937; /* Dark gray */
+  color: #f9fafb; /* Soft white */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+ 
+}
+
+/* ========== Footer Layout ========== */
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+}
+
+.footer-content-left,
+.footer-content-center,
+.footer-content-right {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* ========== Logo & Headings ========== */
+.footer-logo {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #e11d48;
+}
+
+.footer-content h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #e11d48;
+}
+
+/* ========== Text & Lists ========== */
+.footer p {
+  line-height: 1.6;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.footer-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-content ul li {
+  font-size: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: color 0.2s, text-decoration 0.2s;
+  border-bottom: 1px solid transparent;
+}
+
+.footer-content ul li:hover {
+  color: #e11d48;
+ 
+}
+
+/* ========== Social Icons ========== */
+.footer-social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social-icons img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.footer-social-icons img:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+  box-shadow: 0 0 8px rgba(255, 29, 72, 0.6); /* Subtle red glow */
+}
+
+/* ========== Divider & Modes ========== */
+hr {
+  margin-top: 30px;
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+
+/* ========== Copyright ========== */
+.footer p.footer-copyright {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 25px;
+  }
+}
+.footer-content-right {
+  flex: 1 1 320px;
+}
+
+.right-inner {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.right-inner ul {
+  flex: 1;
+  padding: 0;
+  list-style: none;
+  color: #ccc;
+  font-size: 15px;
+}
+
+.footer-map {
+  width: 300px;
+  height: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-left: 220px;
+  margin-top: -80px;
+}
+
+
+.footer-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 10px;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  .right-inner {
+    flex-direction: column;
+  }
+
+  .footer-map {
+    width: 100%;
+  }
+}

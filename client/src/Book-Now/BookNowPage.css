@@ -1,0 +1,75 @@
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.booking-form input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.button-group {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.button-group button[type="submit"] {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.button-group button[type="submit"]:hover {
+  background-color: #c0392b;
+}
+
+.button-group button[type="button"] {
+  background-color: #bdc3c7;
+}
+
+.button-group button[type="button"]:hover {
+  background-color: #a4b0be;
+}
