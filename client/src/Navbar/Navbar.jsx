@@ -21,15 +21,16 @@ const Navbar = ({ handleScrollTo }) => {
       </div>
       <ul className="Menu">
         <li><button onClick={handleNavigateHome}><h3>Home</h3></button></li>
-        <li><button
-        onClick={() => {
-        if (window.location.pathname !== "/") {
-        navigate("/#MenuPage");
-        } else {
-        handleScrollTo("MenuPage");
-        }
-        }}
-        >
+        <li>
+          <button
+    onClick={() => {
+      if (window.location.pathname !== "/") {
+        navigate("/#menu");
+      } else {
+        handleScrollTo("Menu");
+      }
+    }}
+  >
         <h3>Menu</h3>
         </button></li>
         <li><button onClick={() => navigate("/OurWork")}><h3>Our Work</h3></button></li>

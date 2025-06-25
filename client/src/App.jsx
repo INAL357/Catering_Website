@@ -19,6 +19,7 @@ function App() {
   const menuRef = useRef();
   const contactRef = useRef();
   const homeContactRef =useRef();
+  const homeMenuRef =useRef();
   const location = useLocation();
 
   const handleScrollToRef = (section) => {
@@ -33,9 +34,10 @@ function App() {
 
 
   useEffect(() => {
-  if (location.pathname === "/" && window.location.hash === "#contact") {
+  if (location.pathname === "/" && window.location.hash === "#contact" || window.location.hash === "#menu") {
     setTimeout(() => {
       homeContactRef.current?.scrollIntoView({ behavior: "smooth" });
+      homeMenuRef.current?.scrollIntoView({behavior:"smooth"})
     }, 100); 
   }
 }, [location]);
@@ -44,6 +46,7 @@ function App() {
   const setMultipleRef = (el)=>{
     contactRef.current=el;
     homeContactRef.current=el;
+    homeMenuRef.current=el;
   
   }
   return (
