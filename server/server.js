@@ -2,23 +2,14 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Adminroute from "./Routes/adminRoute.js"; 
-
 
 dotenv.config();
 const app = express();
-
 const PORT = 4000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Serve static uploaded images
-app.use("/uploads", express.static("public/uploads"));
-
-// Routes
-app.use("/api/admin", Adminroute);
 
 // DB Connection
 const connectDB = async () => {

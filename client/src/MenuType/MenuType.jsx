@@ -14,11 +14,12 @@ const Menu = () => {
       try {
         const res = await fetch("http://localhost:4000/api/admin/dishes");
         const data = await res.json();
+        console.log("Fetched data:", data); // 🧪 Debug
         setDishes(data);
         setFilteredDishes(data);
-        setIsLoading(false);
       } catch (err) {
         console.error("Failed to fetch dishes:", err);
+      } finally {
         setIsLoading(false);
       }
     };
@@ -33,10 +34,16 @@ const Menu = () => {
       setFilteredDishes(dishes);
     } else {
       const filtered = dishes.filter(
-        (dish) => dish.type.toLowerCase() === categoryId
+        (dish) => dish.type.toLowerCase() === categoryId.toLowerCase()
       );
       setFilteredDishes(filtered);
     }
+  };
+
+  // Helper to get image URL
+  const getImageUrl = (fileName) => {
+    if (!fileName) return "/fallback.png";
+    return `http://localhost:4000/uploads/${fileName}`;
   };
 
   return (
@@ -79,9 +86,13 @@ const Menu = () => {
             {filteredDishes.map((dish) => (
               <div className="dish-card" key={dish._id}>
                 <img
-                  src={`http://localhost:4000${dish.image}`}
+                  src={getImageUrl(dish.dishPhoto)}
                   alt={dish.name}
                   className="dish-image"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/fallback.png"; // fallback image
+                  }}
                 />
                 <div className="dish-info">
                   <h4>{dish.name}</h4>

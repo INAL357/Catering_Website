@@ -48,7 +48,7 @@ function Footer() {
         <div className="footer-content-right">
           <h2>GET IN TOUCH</h2>
           <ul>
-            <li>+91-9845750226</li>
+            <li>+91-98xxxxxx26</li>
             <li>pangalacaters@gmail.com</li>
           </ul>
           <div className="footer-map">
