@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import data from "../assets/data.js"; // category buttons
-import "./MenuType.css"; // styles for both buttons and dishes
+import data from "../assets/data.js";
+import "./MenuType.css";
 
 const Menu = () => {
   const [dishes, setDishes] = useState([]);
@@ -8,15 +8,19 @@ const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch dishes on mount
+  const fallbackImage = "/fallback.jpg"; 
+
+  // Fetch dishes
   useEffect(() => {
     const fetchDishes = async () => {
       try {
         const res = await fetch("http://localhost:4000/api/admin/dishes");
         const data = await res.json();
-        console.log("Fetched data:", data); // 🧪 Debug
         setDishes(data);
         setFilteredDishes(data);
+        console.log("Fetched dishes:", data);
+
+
       } catch (err) {
         console.error("Failed to fetch dishes:", err);
       } finally {
@@ -34,15 +38,15 @@ const Menu = () => {
       setFilteredDishes(dishes);
     } else {
       const filtered = dishes.filter(
-        (dish) => dish.type.toLowerCase() === categoryId.toLowerCase()
+        (dish) => dish.type?.toLowerCase() === categoryId.toLowerCase()
       );
       setFilteredDishes(filtered);
     }
   };
 
-  // Helper to get image URL
+  // Get image URL
   const getImageUrl = (fileName) => {
-    if (!fileName) return "/fallback.png";
+    if (!fileName) return fallbackImage;
     return `http://localhost:4000/uploads/${fileName}`;
   };
 
@@ -89,9 +93,12 @@ const Menu = () => {
                   src={getImageUrl(dish.dishPhoto)}
                   alt={dish.name}
                   className="dish-image"
+                  loading="lazy"
+                  onLoad={(e) => e.target.classList.add("loaded")}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "/fallback.png"; // fallback image
+                    e.target.src = fallbackImage;
+                    e.target.classList.add("loaded");
                   }}
                 />
                 <div className="dish-info">
