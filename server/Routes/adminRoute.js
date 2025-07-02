@@ -16,13 +16,13 @@ const checkAdmin = (req, res, next) => {
   }
 };
 
-// Ensure upload directory exists
-const uploadDir = "public/uploads";
+// Use absolute path for uploads
+const uploadDir = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Multer Setup
+// Multer setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, uploadDir);
@@ -33,20 +33,18 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-
-//create
+// Create Dish
 Adminroute.post("/create", checkAdmin, upload.single("dishPhoto"), async (req, res) => {
-  console.log("Received body:", req.body); 
-  console.log("Received file:", req.file); 
+  console.log("Received body:", req.body);
+  console.log("Received file:", req.file);
 
   try {
-    const name = (req.body['name\t'] || req.body.name || "").trim();
+    const name = (req.body.name || "").trim();
     const description = (req.body.description || "").trim();
     const type = (req.body.type || "").trim();
     const price = req.body.price || null;
     const dishPhoto = req.file?.filename || "";
 
-    // Validate required fields
     if (!name || !description || !type) {
       return res.status(400).json({
         message: "Validation failed",
@@ -59,28 +57,31 @@ Adminroute.post("/create", checkAdmin, upload.single("dishPhoto"), async (req, r
 
     return res.status(201).json(newDish);
   } catch (err) {
-    return res.status(409).json({ 
-      message: "Failed to create dish", 
-      error: err.message,
-      validationErrors: err.errors
+    return res.status(409).json({
+      message: "Failed to create dish",
+      error: err.message
     });
   }
 });
-//fetch dish
+
+// Fetch Dishes
 Adminroute.get("/dishes", async (req, res) => {
+  console.log("/api/admin/dishes route HIT");
   try {
-    const dishes = await Dish.find(); // your DB call
+    const dishes = await Dish.find();
     res.json(dishes);
   } catch (err) {
     res.status(500).json({ error: "Something went wrong" });
   }
 });
-// update dish
+
+// Update Dish
 Adminroute.put("/dish/:id", checkAdmin, upload.single("dishPhoto"), async (req, res) => {
   try {
     const dish = await Dish.findById(req.params.id);
     if (!dish) return res.status(404).json({ error: "Dish not found" });
 
+    // Delete old image if replaced
     if (req.file && dish.dishPhoto) {
       const oldImagePath = path.join(uploadDir, dish.dishPhoto);
       fs.unlink(oldImagePath, (err) => {
@@ -93,7 +94,7 @@ Adminroute.put("/dish/:id", checkAdmin, upload.single("dishPhoto"), async (req, 
       description: req.body.description || dish.description,
       type: req.body.type || dish.type,
       price: req.body.price || dish.price,
-      dishPhoto : req.file ? req.file.filename : dish.dishPhoto ,
+      dishPhoto: req.file ? req.file.filename : dish.dishPhoto,
     };
 
     const updatedDish = await Dish.findByIdAndUpdate(req.params.id, updatedData, { new: true });
@@ -103,14 +104,14 @@ Adminroute.put("/dish/:id", checkAdmin, upload.single("dishPhoto"), async (req, 
   }
 });
 
-// DELETE Dish
+// Delete Dish
 Adminroute.delete("/dish/:id", checkAdmin, async (req, res) => {
   try {
     const dish = await Dish.findByIdAndDelete(req.params.id);
     if (!dish) return res.status(404).json({ error: "Dish not found" });
 
-    if (dish.dishPhoto ) {
-      const imagePath = path.join(uploadDir, dish.dishPhoto );
+    if (dish.dishPhoto) {
+      const imagePath = path.join(uploadDir, dish.dishPhoto);
       fs.unlink(imagePath, (err) => {
         if (err) console.error("Failed to delete image:", err);
       });
